@@ -1,0 +1,109 @@
+@CHARSET "UTF-8";
+
+body{
+	background-color:#fffafa;
+	}
+.back{
+	background-color:#fffafa;
+	background-image:url('./background.jpg');
+	background-repeat:no-repeat;
+	background-size:100% 100px;
+}
+p{
+
+}
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+.right{
+	width:200px;
+	margin-left:auto;
+	border-style:solid;
+	border-width:thin;
+	background-color:#87ceeb;
+	font-size:large;
+	z-index:1;
+}
+.left{
+	margin-right: auto;
+	background-color:#fffafa;
+}
+h1{
+	width:200px;
+	margin-left: auto;
+    margin-right: auto;
+}
+h2{
+	width:200px;
+	margin-left: auto;
+    margin-right: auto;
+    font-color:red;
+}
+.printer{
+	margin-left: auto;
+    margin-right: auto;
+}
+table{
+	margin-left: auto;
+    margin-right: auto;
+    font-size:large;
+    font-family:arial;
+}
+th{
+	background-color:#66CC66;
+}
+td{
+
+}
+.money{
+	text-align:right;
+}
+input#middle_button{
+	padding:15px 40px;
+	font-size:1.2em;
+	background-color:#84a2d4;
+	border-style:none;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+}
+input#middle_button:hover{
+	background-color:#b0c4de;
+	padding:15px 40px;
+	font-size:1.2em;
+	border-style:none;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+}
+input#small_button{
+	background-color:#84a2d4;
+	border-style:none;
+}
+input#small_button:hover{
+	background-color:#b0c4de;
+	border-style:none;
+}
+input#small_alert_button{
+	background-color:#ffff00;
+	border-style:none;
+}
+input#small_alert_button:hover{
+	background-color:#ff8c00;
+	border-style:none;
+}
+input#year{
+	width:30px
+}
+div{
+	text-align:center;
+}
+.right{
+	text-align:right;
+}
+.fromt{
+	width:auto;
+	background-color:#87ceeb;
+}
+

@@ -1,0 +1,23 @@
+@CHARSET "UTF-8";
+body{
+	 background-color:#FFFFCC
+}
+
+html{
+	position:relative;left:200mm;
+}
+
+h1{
+	color:white;
+	background-color:#66CCFF;
+	padding-left:40px;
+	width:70mm;
+	position:relative;right:10mm;
+}
+
+input{
+	color:white;
+	background-color:black;
+	width:100px;
+	height:50px;
+}

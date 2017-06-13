@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+
+<form-validation>
+
+<!--
+     This is a minimal Validator form file with a couple of examples.
+-->
+
+    <global>
+
+        <!-- An example global constant
+        <constant>
+            <constant-name>postalCode</constant-name>
+            <constant-value>^\d{5}\d*$</constant-value>
+        </constant>
+        end example-->
+
+    </global>
+
+    <formset>
+
+    <!-- **************入力チェック対象のForm設定************** -->
+    <form name="SampleValidatorForm">
+
+        <!-- *********ageプロパティとチェックルール設定******** -->
+        <field property="age" depends="required,integer" >
+            <!-- *************エラーメッセージ設定************ -->
+            <msg name="integer" key="error.age.notint" />
+            <msg name="required" key="error.age.required" />
+        </field>
+
+        <!-- *********mailプロパティとチェックルール設定******** -->
+        <field property="mail" depends="required,email" >
+            <!-- *************エラーメッセージ設定************ -->
+            <msg name="required" key="error.mail.required" />
+            <msg name="email" key="error.mail.format" />
+        </field>
+
+    </form>
+
+
+	<form name="QuestionnaireForm">
+
+		<field property="id"  depends="required">
+			<msg name="required" key="error.id" />
+
+
+		</field>
+
+		<field property="pass" depends="required">
+			<msg name="required" key="error.pass" />
+
+
+		</field>
+
+
+
+	</form>
+		<form name="MakeForm">
+
+
+		<field property="ankName"  depends="required">
+			<msg name="required" key="error.an" />
+		</field>
+
+	</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- An example form -->
+        <form name="logonForm">
+            <field
+                property="username"
+                depends="required">
+                    <arg key="logonForm.username"/>
+            </field>
+            <field
+                property="password"
+                depends="required,mask">
+                    <arg key="logonForm.password"/>
+                    <var>
+                        <var-name>mask</var-name>
+                        <var-value>^[0-9a-zA-Z]*$</var-value>
+                    </var>
+            </field>
+        </form>
+
+    </formset>
+
+    <!-- An example formset for another locale -->
+    <formset language="fr">
+
+        <constant>
+            <constant-name>postalCode</constant-name>
+            <constant-value>^[0-9a-zA-Z]*$</constant-value>
+        </constant>
+
+        <!-- An example form -->
+        <form name="logonForm">
+            <field
+                property="username"
+                depends="required">
+                    <arg key="logonForm.username"/>
+            </field>
+            <field
+                property="password"
+                depends="required,mask">
+                    <arg key="logonForm.password"/>
+                    <var>
+                        <var-name>mask</var-name>
+                        <var-value>^[0-9a-zA-Z]*$</var-value>
+                    </var>
+            </field>
+        </form>
+
+   </formset>
+
+</form-validation>

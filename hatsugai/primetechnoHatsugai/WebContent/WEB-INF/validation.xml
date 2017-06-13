@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+
+<form-validation>
+
+<!--
+     This is a minimal Validator form file with a couple of examples.
+-->
+
+    <global>
+
+        <!-- An example global constant
+        <constant>
+            <constant-name>postalCode</constant-name>
+            <constant-value>^\d{5}\d*$</constant-value>
+        </constant>
+        end example-->
+
+    </global>
+
+    <formset>
+
+        <!-- An example form -->
+        <form name="logonForm">
+            <field
+                property="username"
+                depends="required">
+                    <arg key="logonForm.username"/>
+            </field>
+            <field
+                property="password"
+                depends="required,mask">
+                    <arg key="logonForm.password"/>
+                    <var>
+                        <var-name>mask</var-name>
+                        <var-value>^[0-9a-zA-Z]*$</var-value>
+                    </var>
+            </field>
+        </form>
+
+        <form name="BankForm">
+        	<!-- nameプロパティとチェックルール設定 -->
+        	<field property="name" depends="required">
+        	<!-- エラーメッセージ -->
+        	<msg name="required" key="error.name.required" />
+        	</field>
+
+        	<!-- katakanaプロパティとチェックルール設定 -->
+        	<field property="katakana" depends="required,mask">
+        	<var>
+        		<var-name>mask</var-name>
+        		<var-value>^[ァ-ヶー]+$</var-value>
+        	</var>
+        	<!-- エラーメッセージ -->
+        	<msg name="required" key="error.katakana.required" />
+        	<msg name="mask" key="error.katakana.mask" />
+        	</field>
+
+        	<!-- otherAccountNumberプロパティとチェックルール設定 -->
+        	<field property="otherAccountNumber" depends="required,long,mask">
+        	<var>
+        		<var-name>mask</var-name>
+        		<var-value>^[0-9]+$</var-value>
+        	</var>
+        	<!-- エラーメッセージ -->
+        	<msg name="required" key="error.otherAccountNumber.required" />
+        	<msg name="long" key="error.otherAccountNumber.long" />
+        	<msg name="mask" key="error.otherAccountNumber.long"/>
+        	</field>
+
+        	<!-- furikomiプロパティとチェックルール設定 -->
+        	<field property="furikomi" depends="required,long,mask">
+        	<var>
+        		<var-name>mask</var-name>
+        		<var-value>^[-]?[0-9]+(¥.[0-9]+)?$</var-value>
+        	</var>
+        	<!-- エラーメッセージ -->
+        	<msg name="required" key="error.furikomi.required" />
+        	<msg name="long" key="error.furikomi.long" />
+        	<msg name="mask" key="error.furikomi.long"/>
+        	</field>
+        </form>
+
+        <form name="CreateAccountForm">
+        	<!-- nameプロパティとチェックルール設定 -->
+        	<field property="name" depends="required">
+        	<!-- エラーメッセージ -->
+        	<msg name="required" key="error.name.required" />
+        	</field>
+
+        	<!-- katakanaプロパティとチェックルール設定 -->
+        	<field property="katakana" depends="required,mask">
+        	<var>
+        		<var-name>mask</var-name>
+        		<var-value>^[ァ-ヶー]+$</var-value>
+        	</var>
+        	<!-- エラーメッセージ -->
+        	<msg name="required" key="error.katakanac.required" />
+        	<msg name="mask" key="error.katakanac.mask" />
+        	</field>
+
+        	<!-- uPrefAddressプロパティとチェックルール設定 -->
+        	<field property="uPrefAddress" depends="required">
+        	<!-- エラーメッセージ -->
+        	<msg name="required" key="error.uPrefAddress.required" />
+        	</field>
+
+        	<!-- uCityAddressプロパティとチェックルール設定 -->
+        	<field property="uCityAddress" depends="required">
+        	<!-- エラーメッセージ -->
+        	<msg name="required" key="error.uCityAddress.required" />
+        	</field>
+
+        	<!-- uConstructureプロパティとチェックルール設定 -->
+        	<field property="uConstructure" depends="required">
+        	<!-- エラーメッセージ -->
+        	<msg name="required" key="error.uConstructure.required" />
+        	</field>
+
+        	<!-- telプロパティとチェックルール設定 -->
+        	<field property="tel" depends="integer,mask">
+        	<var>
+        		<var-name>mask</var-name>
+        		<var-value>^[0-9]+$</var-value>
+        	</var>
+        	<!-- エラーメッセージ -->
+        	<msg name="integer" key="error.tel.integer" />
+        	<msg name="mask" key="error.tel.integer" />
+        	</field>
+
+        	<!-- mobileプロパティとチェックルール設定 -->
+        	<field property="mobile" depends="long,mask">
+        	<var>
+        		<var-name>mask</var-name>
+        		<var-value>^[0-9]+$</var-value>
+        	</var>
+        	<!-- エラーメッセージ -->
+        	<msg name="long" key="error.mobile.long" />
+        	<msg name="mask" key="error.mobile.long" />
+        	</field>
+
+        	<!-- mailプロパティとチェックルール設定 -->
+        	<field property="mail" depends="email">
+        	<!-- エラーメッセージ -->
+        	<msg name="email" key="error.mail.email" />
+        	</field>
+
+        	<!-- zokuseiプロパティとチェックルール設定 -->
+        	<field property="zokusei" depends="required">
+        	<!-- エラーメッセージ -->
+        	<msg name="required" key="error.zokusei.required" />
+        	</field>
+
+        	<!-- passwordプロパティとチェックルール設定 -->
+        	<field property="password" depends="required,mask">
+        	<var>
+        		<var-name>mask</var-name>
+        		<var-value>^[a-zA-Z0-9 -/:-@\[-\`\{-\~]+$</var-value>
+        	</var>
+        	<!-- エラーメッセージ -->
+        	<msg name="required" key="error.passwordc.required" />
+        	<msg name="mask" key="error.passwordc.mask" />
+        	</field>
+
+        	<!-- passwordconfプロパティとチェックルール設定 -->
+        	<field property="passwordconf" depends="required,mask">
+        	<var>
+        		<var-name>mask</var-name>
+        		<var-value>^[a-zA-Z0-9 -/:-@\[-\`\{-\~]+$</var-value>
+        	</var>
+        	<!-- エラーメッセージ -->
+        	<msg name="required" key="error.passwordconf.required" />
+        	<msg name="mask" key="error.passwordconf.mask" />
+        	</field>
+
+        	<!-- passnoプロパティとチェックルール設定 -->
+        	<field property="passno" depends="required,mask">
+        	<var>
+        		<var-name>mask</var-name>
+        		<var-value>^[0-9]+$</var-value>
+        	</var>
+        	<!-- エラーメッセージ -->
+        	<msg name="required" key="error.passno.required" />
+        	<msg name="mask" key="error.passno.mask" />
+        	</field>
+
+        	<!-- passnoconfプロパティとチェックルール設定 -->
+        	<field property="passnoconf" depends="required,mask">
+        	<var>
+        		<var-name>mask</var-name>
+        		<var-value>^[0-9]+$</var-value>
+        	</var>
+        	<!-- エラーメッセージ -->
+        	<msg name="required" key="error.passnoconf.required" />
+        	<msg name="mask" key="error.passnoconf.mask" />
+        	</field>
+
+        	<!-- worktelプロパティとチェックルール設定 -->
+        	<field property="worktel" depends="integer,mask">
+        	<var>
+        		<var-name>mask</var-name>
+        		<var-value>^[0-9]+$</var-value>
+        	</var>
+        	<!-- エラーメッセージ -->
+        	<msg name="integer" key="error.worktel.integer" />
+        	<msg name="mask" key="error.worktel.integer" />
+        	</field>
+
+
+        </form>
+
+
+
+    </formset>
+
+    <!-- An example formset for another locale -->
+    <formset language="fr">
+
+        <constant>
+            <constant-name>postalCode</constant-name>
+            <constant-value>^[0-9a-zA-Z]*$</constant-value>
+        </constant>
+
+        <!-- An example form -->
+        <form name="logonForm">
+            <field
+                property="username"
+                depends="required">
+                    <arg key="logonForm.username"/>
+            </field>
+            <field
+                property="password"
+                depends="required,mask">
+                    <arg key="logonForm.password"/>
+                    <var>
+                        <var-name>mask</var-name>
+                        <var-value>^[0-9a-zA-Z]*$</var-value>
+                    </var>
+            </field>
+        </form>
+
+   </formset>
+
+</form-validation>

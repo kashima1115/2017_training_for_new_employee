@@ -1,0 +1,40 @@
+@CHARSET "UTF-8";
+body{
+	 background-color:#FFFFCC;
+}
+
+html{
+	position:relative;left:200mm;
+}
+
+h1{
+	position:relative;right:50mm;
+	color:white;
+	background-color:#66CCFF;
+	padding-left:40px;
+	width:130mm;
+}
+
+table.label{
+	position:relative;right:15mm;
+}
+
+strong{
+	position:relative;right:25mm;
+	color:red;
+}
+
+input.hope{
+	color:white;
+	background-color:black;
+	width:100px;
+	height:50px;
+	position:relative;right:20px;
+}
+
+h2{
+	position:relative;right:25mm;
+	color:red;
+	text-decoration:underline;
+}
+

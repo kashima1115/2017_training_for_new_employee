@@ -1,0 +1,19 @@
+@CHARSET "UTF-8";
+html{
+	position:relative;left:200mm;
+}
+
+body{
+	 background-color:#FFFFCC
+}
+
+input{
+	color:white;
+	background-color:black;
+	width:100px;
+	height:50px;
+}
+
+h1{
+	color:blue;
+}
