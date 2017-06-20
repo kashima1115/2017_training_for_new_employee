@@ -1,0 +1,39 @@
+@CHARSET "UTF-8";
+
+html,body{
+	width:100%;
+}
+
+body{
+	 background-color:#FFFFCC;
+	 margin:0px;
+	 pedding:0px;
+}
+
+#main{
+	margin-left:auto;
+	margin-right:auto;
+	width:40%;
+}
+
+input{
+	color:white;
+	background-color:black;
+	width:100px;
+	height:50px;
+}
+
+h1{
+	color:white;
+	background-color:#66CCFF;
+	padding-left:40px;
+	width:40%;
+}
+
+h2.rare{
+	color:red;
+}
+
+h2.normal{
+	color:blue;
+}
