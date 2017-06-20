@@ -13,7 +13,22 @@
 <title>回答確認画面</title>
 </head>
 <body>
+
+
+
+<!-- 不正アクセス処理 -->
+	<logic:notPresent name="logid" scope="session">
+		<logic:redirect forward="logerror"/>
+	</logic:notPresent>
+
+
+
 	<h1>回答確認</h1>
+
+
+	<a class="error">
+	<html:errors />
+	</a>
 	<html:form action="/KaikakuAction">
 
 

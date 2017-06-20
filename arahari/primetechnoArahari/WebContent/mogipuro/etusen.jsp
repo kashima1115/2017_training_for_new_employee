@@ -48,6 +48,16 @@ table td {
 </style>
 </head>
 <body>
+
+
+<!-- 不正アクセス処理 -->
+	<logic:notPresent name="logid" scope="session">
+		<logic:redirect forward="logerror"/>
+	</logic:notPresent>
+
+
+
+
 	<h1>閲覧アンケート選択</h1>
 
 	<a class="error"> <html:errors />
@@ -55,42 +65,38 @@ table td {
 
 	<html:form action="/EtusenAction">
 
-
-<a class="square_btn">
-終了済みアンケート
-</a>
-
-
+		<html:submit property="esControl" styleClass="deg_btn">
+			<bean:message key="einext" />
+		</html:submit>
+		<br />
 
 
-		<logic:notEmpty name="endList">
-
-			<table border="1">
-				<tr>
-
-					<th>アンケート名</th>
-					<th>選択ボタン</th>
-				</tr>
-				<logic:iterate id="bn2" name="endList" type="mogipuro.MakeForm">
-
-					<tr>
-
-						<td><bean:write name="bn2" property="endName" /></td>
+		<html:submit property="esControl" styleClass="deg_btn">
+			<bean:message key="eknext" />
+		</html:submit>
+		<br />
 
 
-						<td><html:radio property="radio"
-								value="<%=bn2.getEndName()%>" /></td>
+		<html:submit property="esControl" styleClass="deg_btn">
+			<bean:message key="ejnext" />
+		</html:submit>
+		<br />
+
+		<html:submit property="esControl" styleClass="deg_btn">
+			<bean:message key="emnext" />
+		</html:submit>
+		<br />
 
 
-					</tr>
 
-				</logic:iterate>
-			</table>
-		</logic:notEmpty>
+		<html:submit property="esControl" styleClass="deg_btn">
+			<bean:message key="back" />
+		</html:submit>
 		<br/>
 
+
 		<a class="square_btn">
-		回答受付中アンケート
+		全アンケート一覧
 		</a>
 
 		<logic:notEmpty name="etuList">
@@ -121,23 +127,12 @@ table td {
 
 
 
-
-
-
-
-
-
-
-
 		<html:submit property="esControl" styleClass="deg_btn">
 			<bean:message key="esnext" />
 		</html:submit>
 		<br />
 
 
-		<html:submit property="esControl" styleClass="deg_btn">
-			<bean:message key="back" />
-		</html:submit>
 
 
 	</html:form>

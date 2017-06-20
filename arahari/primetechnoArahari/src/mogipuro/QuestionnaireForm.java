@@ -74,10 +74,14 @@ public class QuestionnaireForm extends ValidatorForm {
 		if (!pass.equals(passkaku)) {
 			errors.add("itti_error", new ActionMessage("error.itti"));
 		}
+		if(pass.length() < 4){
+			errors.add("pass_error", new ActionMessage("error.pasu"));
+		}
 
 		if(id.length() > 50 || pass.length() > 50){
 			errors.add("word_error", new ActionMessage("error.word"));
 		}
+
 
 
 

@@ -13,6 +13,13 @@
 <title>ホーム画面</title>
 </head>
 <body>
+<!-- 不正アクセス処理 -->
+	<logic:notPresent name="logid" scope="session">
+		<logic:redirect forward="logerror"/>
+	</logic:notPresent>
+
+
+
 	<h1>ホーム画面</h1>
 	<a class="error"> <html:errors />
 	</a>
@@ -48,6 +55,15 @@
 		</html:submit>
 		<br />
 		<br />
+
+		<html:submit property="homeControl" styleClass="deg_btn">
+			<bean:message key="del" />
+		</html:submit>
+		<br />
+		<br />
+
+
+
 
 		<html:submit property="homeControl" styleClass="deg_btn">
 			<bean:message key="logout" />

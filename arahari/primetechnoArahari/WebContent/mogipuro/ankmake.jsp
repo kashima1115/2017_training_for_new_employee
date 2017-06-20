@@ -14,6 +14,16 @@
 <title>アンケート作成画面</title>
 </head>
 <body>
+
+
+<!-- 不正アクセス処理 -->
+	<logic:notPresent name="logid" scope="session">
+		<logic:redirect forward="logerror"/>
+	</logic:notPresent>
+
+
+
+
 	<h1>アンケート作成</h1>
 	※ は入力必須です。<br/>
 	<a class="error"> <html:errors />

@@ -15,6 +15,12 @@
 <body>
 
 
+<!-- 不正アクセス処理 -->
+	<logic:notPresent name="logid" scope="session">
+		<logic:redirect forward="logerror"/>
+	</logic:notPresent>
+
+
 	<h1>アンケート作成完了</h1>
 	<a class="square_btn"> アンケート作成ありがとうございます！ 2P消費しました </a>
 
