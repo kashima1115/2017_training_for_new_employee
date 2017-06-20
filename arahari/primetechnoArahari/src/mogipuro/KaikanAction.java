@@ -31,15 +31,13 @@ public class KaikanAction extends LookupDispatchAction {
 	}
 
 	// 次へ遷移するためのnextPageメソッド
-	public ActionForward nextPage(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
+	public ActionForward nextPage(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 
 		// データベース処理関連変数の定義
 		List<LoginForm> list = new ArrayList<LoginForm>();
 
 		Connection con = null;
-
 		ResultSet rset = null;
 		ResultSet rst = null;
 		Statement stmt = null;
@@ -48,7 +46,7 @@ public class KaikanAction extends LookupDispatchAction {
 		DataSource source = getDataSource(request);
 
 		HttpSession session = request.getSession(true);
-
+		// セッションでログイン情報を取得
 		String logid = (String) session.getAttribute("logid");
 
 		try {
@@ -57,12 +55,11 @@ public class KaikanAction extends LookupDispatchAction {
 
 			// 自動コミットオフ
 			con.setAutoCommit(false);
-
+			// ログイン情報からポイントを取得
 			stmt = con.createStatement();
 
 			// SQL文実行
-			rst = stmt.executeQuery("SELECT * FROM point where  user_id"
-					+ "= '" + logid + "'");
+			rst = stmt.executeQuery("SELECT * FROM point where  user_id" + "= '" + logid + "'");
 
 			while (rst.next()) {
 				LoginForm mbn = new LoginForm();
@@ -97,17 +94,19 @@ public class KaikanAction extends LookupDispatchAction {
 			}
 		}
 
+		session.removeAttribute("MakeForm");
+
 		// 画面遷移
 		return mapping.findForward("home");
 	}
 
 	// 前へ遷移するためのbackPageメソッド
-	public ActionForward backPage(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
-
+	public ActionForward backPage(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		// セッションを切りログアウト
 		HttpSession session = request.getSession();
 		session.removeAttribute("LoginForm");
+		session.removeAttribute("MakeForm");
 
 		// 画面遷移
 		return mapping.findForward("logout");

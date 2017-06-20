@@ -32,9 +32,8 @@ public class ToukakuAction extends LookupDispatchAction {
 	}
 
 	// 次へ遷移するためのnextPageメソッド
-	public ActionForward nextPage(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
+	public ActionForward nextPage(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 
 		// データベース処理関連変数の定義
 		Connection con = null;
@@ -44,7 +43,7 @@ public class ToukakuAction extends LookupDispatchAction {
 		Statement stm = null;
 
 		HttpSession session = request.getSession(true);
-
+		// セッションして登録情報を取得
 		String id = (String) session.getAttribute("id");
 
 		// formをキャストする
@@ -62,10 +61,8 @@ public class ToukakuAction extends LookupDispatchAction {
 
 			stm = con.createStatement();
 			// SQL文実行
-			rset = stm
-					.executeQuery("SELECT user_id FROM user where user_id = '"
-							+ id + "'");
-
+			rset = stm.executeQuery("SELECT user_id FROM user where user_id = '" + id + "'");
+			// 重複チェック
 			if (rset.next()) {
 
 				// メッセージの設定
@@ -77,11 +74,10 @@ public class ToukakuAction extends LookupDispatchAction {
 				// 検索画面遷移のためのパラメータ設定
 				return mapping.findForward("error");
 			}
-
+			// ユーザ登録処理
 			// ステートメント生成
-			stmt = con.prepareStatement("INSERT INTO user"
-					+ "(user_id, pass, inp_date, upd_date) "
-					+ "VALUES(?, ?, current_date, now())");
+			stmt = con.prepareStatement(
+					"INSERT INTO user" + "(user_id, pass, inp_date, upd_date) " + "VALUES(?, ?, current_date, now())");
 
 			// パラメータを設定
 			stmt.setString(1, fom.getId());
@@ -91,9 +87,8 @@ public class ToukakuAction extends LookupDispatchAction {
 			stmt.executeUpdate();
 
 			// ステートメント生成
-			state = con.prepareStatement("INSERT INTO point"
-					+ "(user_id,  inp_date, upd_date) "
-					+ "VALUES(?,  current_date, now())");
+			state = con.prepareStatement(
+					"INSERT INTO point" + "(user_id,  inp_date, upd_date) " + "VALUES(?,  current_date, now())");
 
 			// パラメータを設定
 			state.setString(1, fom.getId());
@@ -123,7 +118,7 @@ public class ToukakuAction extends LookupDispatchAction {
 				con.close();
 			}
 		}
-
+		// セッションの終了
 		session.removeAttribute("QuestionnaireForm");
 
 		// 画面遷移
@@ -131,9 +126,8 @@ public class ToukakuAction extends LookupDispatchAction {
 	}
 
 	// 前へ遷移するためのbackPageメソッド
-	public ActionForward backPage(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
+	public ActionForward backPage(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 
 		// 画面遷移
 		return mapping.findForward("back");

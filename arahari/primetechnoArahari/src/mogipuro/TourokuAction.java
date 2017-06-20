@@ -19,9 +19,8 @@ import org.apache.struts.action.ActionMessages;
 public class TourokuAction extends Action {
 
 	@Override
-	public ActionForward execute(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
+	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 
 		if (this.isCancelled(request)) {
 			// キャンセルボタン押下時の処理
@@ -48,9 +47,7 @@ public class TourokuAction extends Action {
 				stm = con.createStatement();
 
 				// SQL文実行
-				rset = stm
-						.executeQuery("SELECT user_id FROM user where user_id = '"
-								+ id + "'");
+				rset = stm.executeQuery("SELECT user_id FROM user where user_id = '" + id + "'");
 
 				if (rset.next()) {
 

@@ -19,7 +19,7 @@
 	</a>
 
 	<html:form action="/ToukakuAction">
-	ユーザID  <bean:write name="QuestionnaireForm" property="id" />
+	ユーザ名  <bean:write name="QuestionnaireForm" property="id" />
 		<br />
 
 

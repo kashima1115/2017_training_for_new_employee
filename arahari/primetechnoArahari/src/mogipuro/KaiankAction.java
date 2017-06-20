@@ -13,9 +13,8 @@ import org.apache.struts.action.ActionMessages;
 public class KaiankAction extends Action {
 
 	@Override
-	public ActionForward execute(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
+	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 
 		if (this.isCancelled(request)) {
 			// キャンセルボタン押下時の処理
@@ -24,7 +23,7 @@ public class KaiankAction extends Action {
 
 			// formをキャストする
 			MakeForm frm = (MakeForm) form;
-
+			// 質問に一つもチェックされていないときのエラーチェック
 			if (frm.getChoices() == null || frm.getChoices().equals("")) {
 				// メッセージの設定
 				ActionMessages errors = new ActionMessages();

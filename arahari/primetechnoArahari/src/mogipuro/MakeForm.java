@@ -57,6 +57,7 @@ public class MakeForm extends ValidatorForm {
 	private String select;
 	private String week;
 	private String endName;
+	private int kaitou;
 
 	// 年月日、時分のListを定義（LabelValueBean型）
 	private List<LabelValueBean> yearList;
@@ -131,6 +132,16 @@ public class MakeForm extends ValidatorForm {
 
 		}
 
+	}
+
+
+	public int getKaitou() {
+		return kaitou;
+	}
+
+
+	public void setKaitou(int kaitou) {
+		this.kaitou = kaitou;
 	}
 
 
@@ -510,13 +521,13 @@ public class MakeForm extends ValidatorForm {
 
 		// ActionErrorsオブジェクト取得
 		ActionErrors errors = super.validate(mapping, request);
-
+//最初の選択肢の未入力エラーチェック
 		if (question1 == null || question1.equals("") || choices11.equals("")
 				|| choices11 == null || choices12.equals("")
 				|| choices12 == null) {
 			errors.add("quest_error", new ActionMessage("error.quest"));
 		}
-
+//終了期限の必須入力チェック
 		if (year.equals("") || month.equals("") || day.equals("")) {
 			errors.add("kikan_error", new ActionMessage("error.kikan"));
 		} else {
@@ -538,9 +549,20 @@ public class MakeForm extends ValidatorForm {
 							Calendar.DATE)) {
 				errors.add("date", new ActionMessage("error.over"));
 			}
+//存在しない日付のエラーチェック
+			if(month.equals("4") && day.equals("31")
+					|| month.equals("6") && day.equals("31")
+					|| month.equals("9") && day.equals("31")
+					|| month.equals("11") && day.equals("31")
+					|| month.equals("2") && day.equals("29")
+					|| month.equals("2") && day.equals("30")
+					|| month.equals("2") && day.equals("31")
+					){
+				errors.add("error_day", new ActionMessage("error.day"));
+			}
 		}
 
-
+//入力フォームは50字以内の入力チェック
 		if(ankName.length() > 50 || question1.length() > 50
 				|| choices11.length() > 50 || choices12.length() >50
 				|| choices13.length() > 50 || choices14.length() >50

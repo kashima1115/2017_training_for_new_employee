@@ -51,8 +51,21 @@ table td {
 
 </head>
 <body>
+
+
+<!-- 不正アクセス処理 -->
+	<logic:notPresent name="logid" scope="session">
+		<logic:redirect forward="logerror"/>
+	</logic:notPresent>
+
+
+
+
 	<h1>回答アンケート選択</h1>
-	<a class="square_btn">同じアンケートに複数回回答しないようお願い致します </a>
+	<a class="square_btn">
+	同じアンケートに複数回回答しないようお願い致します<br/>
+	※自分で作成したアンケートは表示されません
+	 </a>
 	<br />
 
 	<a class="error"> <html:errors />

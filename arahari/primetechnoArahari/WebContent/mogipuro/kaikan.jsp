@@ -13,6 +13,17 @@
 <title>回答完了画面</title>
 </head>
 <body>
+
+
+
+<!-- 不正アクセス処理 -->
+	<logic:notPresent name="logid" scope="session">
+		<logic:redirect forward="logerror"/>
+	</logic:notPresent>
+
+
+
+
 	<h1>回答が完了しました</h1>
 	<a class="square_btn"> アンケート回答ありがとうございます！ 1P獲得しました </a>
 	<html:form action="/KaikanAction">

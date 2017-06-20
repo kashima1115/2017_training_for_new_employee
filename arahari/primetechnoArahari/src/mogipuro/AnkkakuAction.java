@@ -3,6 +3,7 @@ package mogipuro;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,6 +15,8 @@ import javax.sql.DataSource;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
 import org.apache.struts.actions.LookupDispatchAction;
 
 public class AnkkakuAction extends LookupDispatchAction {
@@ -29,12 +32,12 @@ public class AnkkakuAction extends LookupDispatchAction {
 	}
 
 	// 次へ遷移するためのnextPageメソッド
-	public ActionForward nextPage(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
+	public ActionForward nextPage(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 
 		HttpSession session = request.getSession(true);
 
+		// セッションでほかの場所からログインIDデータを持ってくる
 		String logid = (String) session.getAttribute("logid");
 
 		// データベース処理関連変数の定義
@@ -42,6 +45,8 @@ public class AnkkakuAction extends LookupDispatchAction {
 		PreparedStatement stmt = null;
 		ResultSet rset = null;
 		ResultSet rs = null;
+		Statement stm = null;
+		ResultSet rst = null;
 
 		// formをキャストする
 		MakeForm frm = (MakeForm) form;
@@ -55,6 +60,22 @@ public class AnkkakuAction extends LookupDispatchAction {
 
 			// 自動コミットオフ
 			con.setAutoCommit(false);
+			// キャストしたアンケート名をSQLで取得後if文でエラー画面遷移処理
+			stm = con.createStatement();
+			// SQL文実行
+			rst = stm.executeQuery("SELECT * FROM questionnaire where ank_name = '" + frm.getAnkName() + "'");
+
+			if (rst.next()) {
+
+				// メッセージの設定
+				ActionMessages errors = new ActionMessages();
+
+				errors.add("kaku", new ActionMessage("error.ankkaku"));
+
+				saveErrors(request, errors);
+				// 検索画面遷移のためのパラメータ設定
+				return mapping.findForward("error");
+			}
 
 			// アンケート名登録
 			// ステートメント生成
@@ -65,8 +86,7 @@ public class AnkkakuAction extends LookupDispatchAction {
 			// パラメータを設定
 			stmt.setString(1, logid);
 			stmt.setString(2, frm.getAnkName());
-			stmt.setString(3,
-					frm.getYear() + "-" + frm.getMonth() + "-" + frm.getDay());
+			stmt.setString(3, frm.getYear() + "-" + frm.getMonth() + "-" + frm.getDay());
 
 			// SQL実行
 			stmt.executeUpdate();
@@ -76,8 +96,7 @@ public class AnkkakuAction extends LookupDispatchAction {
 
 			// SQL文実行
 			rset = stmt
-					.executeQuery("SELECT ank_id FROM questionnaire where ank_name "
-							+ "= '" + frm.getAnkName() + "'");
+					.executeQuery("SELECT ank_id FROM questionnaire where ank_name " + "= '" + frm.getAnkName() + "'");
 
 			// SQL実行結果表示
 			while (rset.next()) {
@@ -85,11 +104,23 @@ public class AnkkakuAction extends LookupDispatchAction {
 				i = rset.getInt("ank_id");
 
 			}
+			// 回答者数テーブルの登録
+			stmt.close();
+			// ステートメント生成
+			stmt = con.prepareStatement(
+					"INSERT INTO co" + "(ank_id, inp_date, upd_date) " + "VALUES(?, current_date, now())");
+
+			// パラメータを設定
+			stmt.setInt(1, i);
+
+			// SQL実行
+			stmt.executeUpdate();
+
+			// 質問内容登録
 
 			stmt.close();
 			// ステートメント生成
-			stmt = con.prepareStatement("INSERT INTO quest"
-					+ "(ank_id, question, inp_date, upd_date) "
+			stmt = con.prepareStatement("INSERT INTO quest" + "(ank_id, question, inp_date, upd_date) "
 					+ "VALUES(?, ?, current_date, now())");
 
 			// パラメータを設定
@@ -143,8 +174,7 @@ public class AnkkakuAction extends LookupDispatchAction {
 			int q = 0;
 
 			// SQL文実行
-			rs = stmt.executeQuery("SELECT quest_id FROM quest where  question"
-					+ "= '" + frm.getQuestion1() + "'");
+			rs = stmt.executeQuery("SELECT quest_id FROM quest where  question" + "= '" + frm.getQuestion1() + "'");
 
 			// SQL実行結果表示
 			while (rs.next()) {
@@ -156,8 +186,7 @@ public class AnkkakuAction extends LookupDispatchAction {
 			// 悪いデータの登録方法
 			stmt.close();
 			// ステートメント生成
-			stmt = con.prepareStatement("INSERT INTO answer"
-					+ "(quest_id, choices, inp_date, upd_date) "
+			stmt = con.prepareStatement("INSERT INTO answer" + "(quest_id, choices, inp_date, upd_date) "
 					+ "VALUES(?, ?, current_date, now())");
 
 			stmt.setInt(1, q);
@@ -188,9 +217,7 @@ public class AnkkakuAction extends LookupDispatchAction {
 				// 選択肢登録
 				rs.close();
 				// SQL文実行
-				rs = stmt
-						.executeQuery("SELECT quest_id FROM quest where  question"
-								+ "= '" + frm.getQuestion2() + "'");
+				rs = stmt.executeQuery("SELECT quest_id FROM quest where  question" + "= '" + frm.getQuestion2() + "'");
 
 				// SQL実行結果表示
 				while (rs.next()) {
@@ -202,8 +229,7 @@ public class AnkkakuAction extends LookupDispatchAction {
 				// 悪いデータの登録方法
 				stmt.close();
 				// ステートメント生成
-				stmt = con.prepareStatement("INSERT INTO answer"
-						+ "(quest_id, choices, inp_date, upd_date) "
+				stmt = con.prepareStatement("INSERT INTO answer" + "(quest_id, choices, inp_date, upd_date) "
 						+ "VALUES(?, ?, current_date, now())");
 
 				// パラメータを設定
@@ -236,9 +262,7 @@ public class AnkkakuAction extends LookupDispatchAction {
 				// 選択肢登録
 				rs.close();
 				// SQL文実行
-				rs = stmt
-						.executeQuery("SELECT quest_id FROM quest where  question"
-								+ "= '" + frm.getQuestion3() + "'");
+				rs = stmt.executeQuery("SELECT quest_id FROM quest where  question" + "= '" + frm.getQuestion3() + "'");
 
 				// SQL実行結果表示
 				while (rs.next()) {
@@ -250,8 +274,7 @@ public class AnkkakuAction extends LookupDispatchAction {
 				// 悪いデータの登録方法
 				stmt.close();
 				// ステートメント生成
-				stmt = con.prepareStatement("INSERT INTO answer"
-						+ "(quest_id, choices, inp_date, upd_date) "
+				stmt = con.prepareStatement("INSERT INTO answer" + "(quest_id, choices, inp_date, upd_date) "
 						+ "VALUES(?, ?, current_date, now())");
 
 				// パラメータを設定
@@ -284,9 +307,7 @@ public class AnkkakuAction extends LookupDispatchAction {
 				// 選択肢登録
 				rs.close();
 				// SQL文実行
-				rs = stmt
-						.executeQuery("SELECT quest_id FROM quest where  question"
-								+ "= '" + frm.getQuestion4() + "'");
+				rs = stmt.executeQuery("SELECT quest_id FROM quest where  question" + "= '" + frm.getQuestion4() + "'");
 
 				// SQL実行結果表示
 				while (rs.next()) {
@@ -298,8 +319,7 @@ public class AnkkakuAction extends LookupDispatchAction {
 				// 悪いデータの登録方法
 				stmt.close();
 				// ステートメント生成
-				stmt = con.prepareStatement("INSERT INTO answer"
-						+ "(quest_id, choices, inp_date, upd_date) "
+				stmt = con.prepareStatement("INSERT INTO answer" + "(quest_id, choices, inp_date, upd_date) "
 						+ "VALUES(?, ?, current_date, now())");
 
 				// パラメータを設定
@@ -332,9 +352,7 @@ public class AnkkakuAction extends LookupDispatchAction {
 				// 選択肢登録
 				rs.close();
 				// SQL文実行
-				rs = stmt
-						.executeQuery("SELECT quest_id FROM quest where  question"
-								+ "= '" + frm.getQuestion5() + "'");
+				rs = stmt.executeQuery("SELECT quest_id FROM quest where  question" + "= '" + frm.getQuestion5() + "'");
 
 				// SQL実行結果表示
 				while (rs.next()) {
@@ -346,8 +364,7 @@ public class AnkkakuAction extends LookupDispatchAction {
 				// 悪いデータの登録方法
 				stmt.close();
 				// ステートメント生成
-				stmt = con.prepareStatement("INSERT INTO answer"
-						+ "(quest_id, choices, inp_date, upd_date) "
+				stmt = con.prepareStatement("INSERT INTO answer" + "(quest_id, choices, inp_date, upd_date) "
 						+ "VALUES(?, ?, current_date, now())");
 
 				// パラメータを設定
@@ -377,8 +394,7 @@ public class AnkkakuAction extends LookupDispatchAction {
 			}
 			stmt.close();
 			// ステートメント生成
-			stmt = con
-					.prepareStatement("update point set point = point -2 where user_id = ?");
+			stmt = con.prepareStatement("update point set point = point -2 where user_id = ?");
 
 			stmt.setString(1, logid);
 
@@ -400,6 +416,14 @@ public class AnkkakuAction extends LookupDispatchAction {
 
 		} finally {
 
+			if (stm != null) {
+				stm.close();
+			}
+
+			if (rst != null) {
+				rst.close();
+			}
+
 			if (rs != null) {
 				rs.close();
 			}
@@ -416,16 +440,13 @@ public class AnkkakuAction extends LookupDispatchAction {
 			}
 		}
 
-		session.removeAttribute("MakeForm");
-
 		// 画面遷移
 		return mapping.findForward("next");
 	}
 
 	// 前へ遷移するためのbackPageメソッド
-	public ActionForward backPage(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
+	public ActionForward backPage(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 
 		// 画面遷移
 		return mapping.findForward("back");

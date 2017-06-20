@@ -13,6 +13,15 @@
 <title>アンケート結果画面</title>
 </head>
 <body>
+
+
+<!-- 不正アクセス処理 -->
+	<logic:notPresent name="logid" scope="session">
+		<logic:redirect forward="logerror"/>
+	</logic:notPresent>
+
+
+
 	<h1>アンケート結果</h1>
 
 	<html:form action="/EtukekkaAction">
@@ -20,6 +29,13 @@
 
 	アンケート名　<bean:write name="MakeForm" property="radio" />
 		<br />
+
+
+		<logic:iterate id="bn" name="kaitouList" type="mogipuro.MakeForm">
+
+有効回答者数　　　<bean:write name="bn" property="kaitou" />人<br />
+
+			</logic:iterate>
 
 
 		<logic:iterate id="kai" name="kekkaList" type="mogipuro.MakeForm">
@@ -47,9 +63,26 @@
 
 
 		<html:submit property="ekControl" styleClass="deg_btn">
-			<bean:message key="back" />
+			<bean:message key="etuback" />
 		</html:submit>
+		<br />
+		<html:submit property="ekControl" styleClass="deg_btn">
+			<bean:message key="eiback" />
+		</html:submit>
+		<br />
+		<html:submit property="ekControl" styleClass="deg_btn">
+			<bean:message key="ekback" />
+		</html:submit>
+		<br />
+		<html:submit property="ekControl" styleClass="deg_btn">
+			<bean:message key="ejback" />
+		</html:submit>
+		<br />
 
+		<html:submit property="ekControl" styleClass="deg_btn">
+			<bean:message key="emback" />
+		</html:submit>
+		<br />
 
 	</html:form>
 

@@ -126,6 +126,11 @@
         <forward
             name="welcome"
             path="/Welcome.do"/>
+
+
+            <forward
+            name="logerror"
+            path="/LoginerrorAction.do"/>
     </global-forwards>
 
 
@@ -188,6 +193,7 @@
         <forward name="back" path="/mogipuro/start.jsp" />
         <forward name="home" path="/mogipuro/home.jsp" />
         <forward name="error" path="/mogipuro/login.jsp"/>
+        <forward name="logerror" path="/mogipuro/login.jsp" />
      </action>
           <action
         path="/HomeAction"
@@ -201,6 +207,8 @@
         <forward name="logout" path="/mogipuro/start.jsp" />
         <forward name="error" path="/mogipuro/home.jsp" />
         <forward name="husei" path="/mogipuro/home.jsp" />
+        <forward name="del" path="/mogipuro/deliti.jsp" />
+        <forward name="logerror" path="/mogipuro/login.jsp" />
      </action>
                     <action
         path="/AnkmakeAction"
@@ -212,6 +220,7 @@
         <forward name="next" path="/mogipuro/ankkaku.jsp" />
         <forward name="back" path="/mogipuro/home.jsp" />
         <forward name="error" path="/mogipuro/ankmake.jsp"/>
+        <forward name="logerror" path="/mogipuro/login.jsp" />
      </action>
      <action
         path="/AnkkakuAction"
@@ -221,6 +230,8 @@
         validate="false">
         <forward name="next" path="/mogipuro/ankkan.jsp" />
         <forward name="back" path="/mogipuro/ankmake.jsp" />
+        <forward name="error" path="/mogipuro/ankkaku.jsp"/>
+        <forward name="logerror" path="/mogipuro/login.jsp" />
      </action>
      <action
         path="/AnkkanAction"
@@ -230,6 +241,7 @@
         validate="false">
         <forward name="home" path="/mogipuro/home.jsp" />
         <forward name="logout" path="/mogipuro/start.jsp" />
+        <forward name="logerror" path="/mogipuro/login.jsp" />
      </action>
      <action
         path="/KaiitiAction"
@@ -240,6 +252,7 @@
         <forward name="back" path="/mogipuro/home.jsp" />
         <forward name="select" path="/mogipuro/kaiank.jsp" />
         <forward name="error" path="/mogipuro/kaiiti.jsp" />
+        <forward name="logerror" path="/mogipuro/login.jsp" />
      </action>
      <action
         path="/KaiankAction"
@@ -250,6 +263,7 @@
         <forward name="back" path="/mogipuro/kaiiti.jsp" />
         <forward name="next" path="/mogipuro/kaikaku.jsp" />
         <forward name="error" path="/mogipuro/kaiank.jsp" />
+        <forward name="logerror" path="/mogipuro/login.jsp" />
      </action>
      <action
         path="/KaikakuAction"
@@ -259,6 +273,8 @@
         validate="false">
         <forward name="back" path="/mogipuro/kaiank.jsp" />
         <forward name="next" path="/mogipuro/kaikan.jsp" />
+        <forward name="error" path="/mogipuro/kaikaku.jsp"/>
+        <forward name="logerror" path="/mogipuro/login.jsp" />
      </action>
      <action
         path="/KaikanAction"
@@ -268,6 +284,7 @@
         validate="false">
         <forward name="home" path="/mogipuro/home.jsp" />
         <forward name="logout" path="/mogipuro/start.jsp" />
+        <forward name="logerror" path="/mogipuro/login.jsp" />
      </action>
      <action
         path="/EtusenAction"
@@ -278,6 +295,11 @@
         <forward name="back" path="/mogipuro/home.jsp" />
         <forward name="next" path="/mogipuro/etukekka.jsp" />
         <forward name="error" path="/mogipuro/etusen.jsp" />
+        <forward name="einext" path="/mogipuro/etuima.jsp" />
+        <forward name="eknext" path="/mogipuro/etukako.jsp" />
+        <forward name="ejnext" path="/mogipuro/etujibun.jsp" />
+        <forward name="emnext" path="/mogipuro/etusumi.jsp" />
+        <forward name="logerror" path="/mogipuro/login.jsp" />
      </action>
      <action
         path="/EtukekkaAction"
@@ -285,9 +307,113 @@
         type="mogipuro.EtukekkaAction"
         name="MakeForm"
         validate="false">
-        <forward name="back" path="/mogipuro/etusen.jsp" />
+        <forward name="etuback" path="/mogipuro/etusen.jsp" />
         <forward name="home" path="/mogipuro/home.jsp" />
+        <forward name="eiback" path="/mogipuro/etuima.jsp" />
+        <forward name="ekback" path="/mogipuro/etukako.jsp" />
+        <forward name="ejback" path="/mogipuro/etujibun.jsp" />
+        <forward name="emback" path="/mogipuro/etusumi.jsp" />
+        <forward name="logerror" path="/mogipuro/login.jsp" />
      </action>
+     <action
+        path="/EtuimaAction"
+        parameter="eiControl"
+        type="mogipuro.EtuimaAction"
+        name="MakeForm"
+        validate="false">
+        <forward name="back" path="/mogipuro/etusen.jsp" />
+        <forward name="next" path="/mogipuro/etukekka.jsp" />
+        <forward name="error" path="/mogipuro/etuima.jsp" />
+        <forward name="logerror" path="/mogipuro/login.jsp" />
+     </action>
+     <action
+        path="/EtukakoAction"
+        parameter="ekControl"
+        type="mogipuro.EtukakoAction"
+        name="MakeForm"
+        validate="false">
+        <forward name="back" path="/mogipuro/etusen.jsp" />
+        <forward name="next" path="/mogipuro/etukekka.jsp" />
+        <forward name="error" path="/mogipuro/etukako.jsp" />
+        <forward name="logerror" path="/mogipuro/login.jsp" />
+     </action>
+     <action
+        path="/EtujibunAction"
+        parameter="ejControl"
+        type="mogipuro.EtujibunAction"
+        name="MakeForm"
+        validate="false">
+        <forward name="back" path="/mogipuro/etusen.jsp" />
+        <forward name="next" path="/mogipuro/etukekka.jsp" />
+        <forward name="error" path="/mogipuro/etujibun.jsp" />
+        <forward name="logerror" path="/mogipuro/login.jsp" />
+     </action>
+     <action
+        path="/EtusumiAction"
+        parameter="emControl"
+        type="mogipuro.EtusumiAction"
+        name="MakeForm"
+        validate="false">
+        <forward name="back" path="/mogipuro/etusen.jsp" />
+        <forward name="next" path="/mogipuro/etukekka.jsp" />
+        <forward name="error" path="/mogipuro/etusumi.jsp" />
+        <forward name="logerror" path="/mogipuro/login.jsp" />
+     </action>
+     <action
+        path="/LoginerrorAction"
+        type="mogipuro.LoginerrorAction"
+        validate="false">
+        <forward name="login" path="/mogipuro/login.jsp" />
+
+     </action>
+     <action
+        path="/DelitiAction"
+        parameter="ditiControl"
+        type="mogipuro.DelitiAction"
+        name="MakeForm"
+        validate="false">
+        <forward name="back" path="/mogipuro/home.jsp" />
+        <forward name="next" path="/mogipuro/delkaku.jsp" />
+        <forward name="error" path="/mogipuro/deliti.jsp" />
+        <forward name="logerror" path="/mogipuro/login.jsp" />
+     </action>
+     <action
+        path="/DelkakuAction"
+        parameter="dkakuControl"
+        type="mogipuro.DelkakuAction"
+        name="MakeForm"
+        validate="false">
+        <forward name="back" path="/mogipuro/deliti.jsp" />
+        <forward name="next" path="/mogipuro/delkan.jsp" />
+        <forward name="error" path="/mogipuro/delkaku.jsp"/>
+        <forward name="logerror" path="/mogipuro/login.jsp" />
+     </action>
+     <action
+        path="/DelkanAction"
+        parameter="dkanControl"
+        type="mogipuro.DelkanAction"
+        name="MakeForm"
+        validate="false">
+        <forward name="home" path="/mogipuro/home.jsp" />
+        <forward name="logout" path="/mogipuro/start.jsp" />
+        <forward name="logerror" path="/mogipuro/login.jsp" />
+     </action>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

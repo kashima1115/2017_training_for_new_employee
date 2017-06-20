@@ -31,22 +31,20 @@ public class AnkkanAction extends LookupDispatchAction {
 	}
 
 	// 次へ遷移するためのnextPageメソッド
-	public ActionForward nextPage(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
+	public ActionForward nextPage(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 
 		// データベース処理関連変数の定義
 		List<LoginForm> list = new ArrayList<LoginForm>();
 
 		Connection con = null;
-
 		ResultSet rset = null;
 		ResultSet rst = null;
 		Statement stmt = null;
 
 		// struts-config.xmlに設定したDataSource取得
 		DataSource source = getDataSource(request);
-
+		// セッションでログインIDを取得
 		HttpSession session = request.getSession(true);
 
 		String logid = (String) session.getAttribute("logid");
@@ -57,12 +55,11 @@ public class AnkkanAction extends LookupDispatchAction {
 
 			// 自動コミットオフ
 			con.setAutoCommit(false);
-
+			// 取得したログインIDからポイント情報を取得しhome画面に遷移
 			stmt = con.createStatement();
 
 			// SQL文実行
-			rst = stmt.executeQuery("SELECT * FROM point where  user_id"
-					+ "= '" + logid + "'");
+			rst = stmt.executeQuery("SELECT * FROM point where  user_id" + "= '" + logid + "'");
 
 			while (rst.next()) {
 				LoginForm mbn = new LoginForm();
@@ -97,15 +94,16 @@ public class AnkkanAction extends LookupDispatchAction {
 			}
 		}
 
+		session.removeAttribute("MakeForm");
+
 		// 画面遷移
 		return mapping.findForward("home");
 	}
 
 	// 前へ遷移するためのbackPageメソッド
-	public ActionForward backPage(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
-
+	public ActionForward backPage(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		// セッションを終了しログアウト
 		HttpSession session = request.getSession();
 		session.removeAttribute("LoginForm");
 
