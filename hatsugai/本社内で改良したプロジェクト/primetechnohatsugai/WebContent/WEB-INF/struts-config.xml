@@ -71,6 +71,7 @@
     <form-beans>
     <form-bean name="BankForm" type="bank.form.BankForm" />
     <form-bean name="CreateAccountForm" type="bean.CreateAccountForm" />
+    <form-bean name="AccountForm" type="account.form.AccountForm"/>
     <!-- sample form bean descriptor for an ActionForm
         <form-bean
             name="inputForm"
@@ -165,7 +166,7 @@
     	<forward name="transHistory" path="/SelectTransHistoryAction.do" />
     	<forward name="transcation" path="/pages/bank/Transcation.jsp" />
     	<forward name="zandaka" path="/SelectBalanceAction.do" />
-<!--     	<forward name="deleteAccount" path="/pages/bank/AccountDeleteConf.jsp" /> -->
+    	<forward name="deleteAccount" path="/pages/bank/AccountDeleteConf.jsp" />
     	</action>
 
     	<action
@@ -369,27 +370,6 @@
     	<forward name="menu" path="/pages/bank/Menu.jsp" />
     	</action>
 
-<!--     	<action -->
-<!--     	path="/AccountDeleteConfAction" -->
-<!--     	parameter="accountDeleteConfAction" -->
-<!--     	type="bank.AccountDeleteConfAction" -->
-<!--     	name="BankForm" -->
-<!--     	validate="false"> -->
-<!--     	<forward name="conf" path="/pages/bank/Menu.jsp" /> -->
-<!--     	<forward name="return" path="/pages/bank/Menu.jsp" /> -->
-<!--     	</action> -->
-
-<!--     	<action -->
-<!--     	path="/AccountDeleteProcessAction" -->
-<!--     	parameter="accountDeleteProcessAction" -->
-<!--     	type="account.AccountDeleteProcessAction" -->
-<!--     	name="AccountForm" -->
-<!--     	validate="false"> -->
-<!--     	<forward name="conf" path="/pages/bank/Menu.jsp" /> -->
-<!--     	<forward name="return" path="/pages/bank/Menu.jsp" /> -->
-<!--     	</action> -->
-
-
     	<action
     	path="/CreateAccountAction"
     	parameter="createAccountAction"
@@ -435,6 +415,66 @@
     	name="CreateAccountForm"
     	validate="false">
     	<forward name="tologin" path="/BeforeLoginAction.do" />
+    	</action>
+    	<!-- 以下アカウントの変更関係 -->
+    	<action
+    	path="/AccountDeleteConfAction"
+    	parameter="accountDeleteConfAction"
+    	type="bank.AccountDeleteConfAction"
+    	name="BankForm"
+    	validate="false">
+    	<forward name="conf" path="/pages/account/AccountDeleteProcess.jsp" />
+    	<forward name="return" path="/pages/bank/Menu.jsp" />
+    	</action>
+
+    	<action
+    	path="/AccountDeleteProcessAction"
+    	parameter="accountDeleteProcessAction"
+    	type="account.AccountDeleteProcessAction"
+    	name="AccountForm"
+    	validate="true"
+    	input="/pages/account/AccountDeleteProcess.jsp">
+    	<forward name="conf" path="/SELECTpass.do" />
+    	<forward name="return" path="/pages/bank/Menu.jsp" />
+    	</action>
+
+    	<action
+    	path="/SELECTpass"
+    	type="account.SELECTpass"
+    	name="AccountForm"
+    	validate="false">
+    	<forward name="accountdeleteprocessform" path="/pages/account/AccountDeleteProcess.jsp" />
+    	<forward name="transcationform" path="/pages/account/BalanceTranscation.jsp" />
+    	</action>
+
+    	<action
+    	path="/BalanceTranscationAction"
+    	parameter="balanceTranscationAction"
+    	type="account.BalanceTranscationAction"
+    	name="AccountForm"
+    	validate="true"
+    	input="/pages/account/BalanceTranscation.jsp">
+    	<forward name="conf" path="/pages/account/BalanceTranscationConf.jsp" />
+    	<forward name="return" path="/pages/bank/Menu.jsp" />
+    	</action>
+
+    	<action
+    	path="/BalanceTranscationConfAction"
+    	parameter="balanceTranscationConfAction"
+    	type="account.BalanceTranscationConfAction"
+    	name="AccountForm"
+    	validate="false">
+    	<forward name="kaiyaku" path="/DeleteAccount.do" />
+    	<forward name="transcationform" path="/pages/account/BalanceTranscation.jsp" />
+    	<forward name="menu" path="/pages/bank/Menu.jsp" />
+    	</action>
+
+    	<action
+    	path="/DeleteAccount"
+    	type="account.DeleteAccount"
+    	name="AccountForm"
+    	validate="false">
+    	<forward name="deleteresult" path="/pages/account/Deleteresult.jsp" />
     	</action>
 
     <!-- sample input and input submit actions

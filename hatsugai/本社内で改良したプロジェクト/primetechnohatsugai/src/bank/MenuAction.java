@@ -19,7 +19,7 @@ public class MenuAction extends LookupDispatchAction {
 	     map.put("zandaka", "zandakaPage");
 	     map.put("transHistory", "transHistoryPage");
 	     map.put("transcation", "transcationPage");
-//	     map.put("deleteAccount", "deleteAccountPage");
+	     map.put("deleteAccount", "deleteAccountPage");
 
 
 	     return map;
@@ -45,12 +45,12 @@ public class MenuAction extends LookupDispatchAction {
 		return mapping.findForward("transcation");//振り込み申し込み画面に遷移
 	}
 
-//	public ActionForward deleteAccountPage(ActionMapping mapping
-//            , ActionForm form
-//            , HttpServletRequest request
-//            , HttpServletResponse response) throws Exception {
-//		return mapping.findForward("deleteAccount");//口座解約確認画面に遷移
-//	}
+	public ActionForward deleteAccountPage(ActionMapping mapping
+            , ActionForm form
+            , HttpServletRequest request
+            , HttpServletResponse response) throws Exception {
+		return mapping.findForward("deleteAccount");//口座解約確認画面に遷移
+	}
 
 
 }

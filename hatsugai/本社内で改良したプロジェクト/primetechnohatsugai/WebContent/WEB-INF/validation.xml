@@ -226,6 +226,78 @@
 
         </form>
 
+        <form name="AccountForm">
+        	<!-- accountNumberプロパティとチェックルール設定 -->
+        	<field property="accountNumber" depends="long,mask">
+        	<var>
+        		<var-name>mask</var-name>
+        		<var-value>^[0-9]+$</var-value>
+        	</var>
+        	<!-- エラーメッセージ -->
+        	<msg name="long" key="error.accountNumber.long" />
+        	<msg name="mask" key="error.accountNumber.long"/>
+        	</field>
+
+        	<!-- passwordプロパティとチェックルール設定 -->
+        	<field property="password" depends="mask,minlength">
+        	<var>
+        		<var-name>mask</var-name>
+        		<!-- 半角数字と半角英字小文字 -->
+        		<var-value>^(?=[a-zA-Z0-9]*[0-9])(?=[a-zA-Z0-9]*[a-zA-Z]).*</var-value>
+        	</var>
+        	<var>
+            	<var-name>minlength</var-name>
+            	<var-value>5</var-value>
+                </var>
+
+        	<!-- エラーメッセージ -->
+        	<msg name="mask" key="error.passworde.mask" />
+        	<msg name="minlength" key="error.passwordc.minlength" />
+
+        	</field>
+
+        	<!-- passnoプロパティとチェックルール設定 -->
+        	<field property="passno" depends="mask">
+        	<var>
+        		<var-name>mask</var-name>
+        		<var-value>^[0-9]+$</var-value>
+        	</var>
+        	<!-- エラーメッセージ -->
+        	<msg name="mask" key="error.passno.mask" />
+        	</field>
+
+        	<!-- bankcodeプロパティとチェックルール設定 -->
+        	<field property="bankcode" depends="mask">
+        	<var>
+        		<var-name>mask</var-name>
+        		<var-value>^[0-9]+$</var-value>
+        	</var>
+        	<!-- エラーメッセージ -->
+        	<msg name="mask" key="error.bankcode.mask" />
+        	</field>
+
+        	<!-- blanchcodeプロパティとチェックルール設定 -->
+        	<field property="blanchcode" depends="mask">
+        	<var>
+        		<var-name>mask</var-name>
+        		<var-value>^[0-9]+$</var-value>
+        	</var>
+        	<!-- エラーメッセージ -->
+        	<msg name="mask" key="error.blanchcode.mask" />
+        	</field>
+
+        	<!-- otherAccountNumberプロパティとチェックルール設定 -->
+        	<field property="otherAccountNumber" depends="long,mask">
+        	<var>
+        		<var-name>mask</var-name>
+        		<var-value>^[0-9]+$</var-value>
+        	</var>
+        	<!-- エラーメッセージ -->
+        	<msg name="long" key="error.otherAccountNumberB.long" />
+        	<msg name="mask" key="error.otherAccountNumberB.long"/>
+        	</field>
+        </form>
+
 
 
     </formset>

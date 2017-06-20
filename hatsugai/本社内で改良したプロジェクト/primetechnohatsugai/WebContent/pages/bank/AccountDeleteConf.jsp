@@ -12,9 +12,10 @@
 <title>口座解約確認</title>
 </head>
 <body>
-<%-- 	<jsp:include page="/pages/bank/header.jsp"></jsp:include> --%>
+	<jsp:include page="/pages/bank/header.jsp"></jsp:include>
 	<h1>解約確認</h1>
 	<p>本当に解約しますか？</p>
+	<p>解約する場合は「確認」ボタンを、解約しない場合は「戻る」ボタンを押してください。</p>
 	<html:form action="/AccountDeleteConfAction">
 	<div><html:submit styleId="middle_button" property="accountDeleteConfAction">
 	<bean:message key="conf" />

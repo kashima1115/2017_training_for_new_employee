@@ -23,11 +23,12 @@
 		<html:submit styleId="middle_button" property="menuAction">
 		<bean:message key="zandaka" />
 		</html:submit>
-<!-- 		<!-- ここから口座解約に行くボタン --> -->
-<%-- 		<html:submit styleId="middle_button" property="menuAction"> --%>
-<%-- 		<bean:message key="deleteAccount" /> --%>
-<%-- 		</html:submit> --%>
-<!-- 		<!-- 口座解約ボタン終了 --> -->
+		<br/>
+		<!-- ここから口座解約に行くボタン -->
+		<html:submit styleId="middle_button" property="menuAction">
+		<bean:message key="deleteAccount" />
+		</html:submit>
+		<!-- 口座解約ボタン終了 -->
 		</div>
 	</html:form>
 </body>
